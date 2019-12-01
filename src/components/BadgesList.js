@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./styles/BadgesList.css";
 
@@ -9,18 +10,13 @@ class BadgesListItem extends React.Component {
         <img
           className="BadgesListItem__avatar"
           src={this.props.badge.avatarUrl}
-          alt={`${this.props.badge.firstName}
-          ${this.props.badge.lastName}`}
+          alt={`${this.props.badge.firstName} ${this.props.badge.lastName}`}
         />
-
         <div>
           <strong>
-            {this.props.badge.firstName}
-            {this.props.badge.lastName}
-            <br />@{this.props.badge.twitter}
-            <br />
-            {this.props.badge.jobTitle}
+            {this.props.badge.firstName} {this.props.badge.lastName}
           </strong>
+          <br /> @ {this.props.badge.twitter} <br /> {this.props.badge.jobTitle}
         </div>
       </div>
     );
@@ -29,13 +25,28 @@ class BadgesListItem extends React.Component {
 
 class BadgesList extends React.Component {
   render() {
+    if (this.props.badges.length === 0) {
+      return (
+        <div>
+          <h3> No se encontraron datos </h3>
+          <Link className="btn btn-primary" to="/badges/new">
+            Nuevo Dato
+          </Link>
+        </div>
+      );
+    }
     return (
       <div className="BadgesList">
         <ul className="list-unstyled">
           {this.props.badges.map((badge) => {
             return (
               <li key={badge.id}>
-                <BadgesListItem badge={badge} />
+                <Link
+                  className="text-reset text-decoration-none"
+                  to={`/badges/${badge.id}/edit`}
+                >
+                  <BadgesListItem badge={badge} />
+                </Link>
               </li>
             );
           })}

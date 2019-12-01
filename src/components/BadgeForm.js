@@ -5,8 +5,7 @@ class BadgeForm extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h1>Asistente</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.props.onSubmit}>
           <div className="form-group">
             <label>Nombre: </label>
             <input
@@ -60,6 +59,9 @@ class BadgeForm extends React.Component {
           <button onClick={this.handleClick} className="btn btn-primary">
             Guardar
           </button>
+          {this.props.error && (
+            <p className="text-danger">{this.props.error.message}</p>
+          )}
         </form>
       </React.Fragment>
     );
@@ -80,11 +82,11 @@ class BadgeForm extends React.Component {
     console.log("Se presiono el boton Guardar");
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submit del Formulario");
-    console.log(this.props.formValues);
-  };
+  // handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("Submit del Formulario");
+  //   console.log(this.props.formValues);
+  // };
 }
 
 export default BadgeForm;
